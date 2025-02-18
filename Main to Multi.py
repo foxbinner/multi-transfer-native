@@ -3,11 +3,11 @@ from web3 import Web3
 # .-.. .. - - . ..-. --- -..-
 #  Constants & Configuration
 # .-.. .. - - . ..-. --- -..-
-AMOUNT = 0.01 # Sending amount each wallet
-RPC_URL = "https://ethereum-sepolia-rpc.publicnode.com"  # RPC
-CHAIN_ID = 11155111  # Chain ID
-TICKER = 'ETH'  # Native token
-EXPLORER = 'https://sepolia.etherscan.io' # Explorer
+AMOUNT = 0.001 # Sending amount each wallet
+RPC_URL = 'https://ethereum-sepolia-rpc.publicnode.com'
+CHAIN_ID = 11155111
+TICKER = 'ETH'
+EXPLORER = 'https://sepolia.etherscan.io'
 GAS_LIMIT = 21000  # Fixed gas limit
 GAS_ADD = 1  # Put 0 for minimum gas fee
 
@@ -64,7 +64,7 @@ def send_token(recipient_address, amount_to_send, nonce):
         # tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
         # fee = tx_receipt['gasUsed'] * gas_price
 
-        print(f"{recipient_address} - Amount: {Web3.from_wei(amount_to_send, 'ether')} {TICKER} - "
+        print(f"{recipient_address} - Amount: {AMOUNT} {TICKER} - "
               # f"Fee: {Web3.from_wei(fee, 'ether')} {TICKER} - "
               f"{EXPLORER}/tx/0x{tx_hash.hex()}")
     except Exception as e:
@@ -90,7 +90,7 @@ try:
     total_needed = (AMOUNT_TO_SEND * len(RECIPIENT_ADDRESSES)) + total_gas_cost
 
     if web3.eth.get_balance(MAIN_WALLET_ADDRESS) < total_needed:
-        raise Exception(f"[Insufficient balance. Need {total_needed / 1e18:.8f} to proccess.]")
+        raise Exception(f"[Insufficient balance. Need {total_needed / 1e18} to proccess.]")
 
     # Transaction processing sequentially
     nonce = web3.eth.get_transaction_count(MAIN_WALLET_ADDRESS)

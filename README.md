@@ -40,7 +40,7 @@ GAS_LIMIT = 21000
 
 ## 🚩 Contribution
 
-Found an issue or have a suggestion? Report it in [issues][repo_issues_url] or fork & submit a pull request. Every contribution counts! 🎉
+Found an issue or have a suggestion? Report it in [issues][repo_issues_url] or fork & submit a pull request.<br>Every contribution counts! 🎉
 
 ## 📄 License
 

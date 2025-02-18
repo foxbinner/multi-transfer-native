@@ -4,10 +4,10 @@ from web3 import Web3
 #  Constants & Configuration
 # .-.. .. - - . ..-. --- -..-
 AMOUNT = 0 # Put 0 to send all
-RPC_URL = "https://ethereum-sepolia-rpc.publicnode.com"  # RPC
-CHAIN_ID = 11155111  # Chain ID
-TICKER = 'ETH'  # Native token
-EXPLORER = 'https://sepolia.etherscan.io' # Explorer
+RPC_URL = 'https://ethereum-sepolia-rpc.publicnode.com'
+CHAIN_ID = 11155111
+TICKER = 'ETH'
+EXPLORER = 'https://sepolia.etherscan.io'
 GAS_LIMIT = 21000  # Fixed gas limit
 GAS_ADD = 1  # Put 0 for minimum gas fee
 
@@ -41,7 +41,7 @@ gas_price = current_gas_price + Web3.to_wei(GAS_ADD, 'gwei')
 #  Core Function
 # .-.. .. - - . ..-. --- -..-
 if AMOUNT == 0:
-    print(f"Sending all {TICKER}:\n")
+    print(f"Sending All {TICKER}:\n")
 else:
     print(f"Sending {AMOUNT} {TICKER}:\n")
 
@@ -51,13 +51,13 @@ def send_token(sender_address, sender_private_key, nonce):
         gas_fee = GAS_LIMIT * gas_price
 
         if balance < (AMOUNT * 1e18 + gas_fee):
-            print(f"Skipping {sender_address} - Insufficient funds - Balance: {balance / 1e18:.8f} {TICKER} - Need: {(AMOUNT + gas_fee / 1e18):.8f} {TICKER}")
+            print(f"Skipping {sender_address} - Balance: {balance / 1e18:.8f} {TICKER} - Need: {AMOUNT + gas_fee / 1e18} {TICKER}")
             return None
 
         if AMOUNT == 0:
             amount_to_send = balance - gas_fee
         else:
-            amount_to_send = Web3.to_wei(AMOUNT, 'ether')
+            amount_to_send = AMOUNT_TO_SEND
 
         transaction = {
             "from": sender_address,
@@ -77,7 +77,7 @@ def send_token(sender_address, sender_private_key, nonce):
         # tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
         # fee = tx_receipt['gasUsed'] * gas_price
 
-        print(f"{sender_address} - Amount: {Web3.from_wei(amount_to_send, 'ether')} {TICKER} - "
+        print(f"{sender_address} - Amount: {amount_to_send / 1e18} {TICKER} - "
               # f"Fee: {Web3.from_wei(fee, 'ether')} {TICKER} - "
               f"{EXPLORER}/tx/0x{tx_hash.hex()}")
     except Exception as e:
